@@ -4,7 +4,8 @@ bold=$(tput bold)
 reset=$(tput sgr0)
 
 stty -echoctl
-trap 'tput cnorm; tput cup 30 0; exit' SIGINT
+
+trap 'tput cnorm; tput cup 31 0; exit' SIGINT
 
 while true; do
         tput cup 1 0
@@ -15,7 +16,8 @@ while true; do
 
 
         echo -e "\n ${bold}${green}Total memory usage (%)${reset}\n"
-        free | grep Mem: | awk '{printf " %.1f%%\n", $3/$7*100 }'
+        free -h | grep Mem: | awk '{printf "Free : "$7}'
+        free | grep Mem: | awk '{printf "\nUsed : %.1f%%\n", $3/$7*100 }'
 
 
         echo -e "\n ${bold}${green}Disk usage${reset}\n"
